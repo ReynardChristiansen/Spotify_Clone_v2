@@ -23,7 +23,7 @@ Hirmify, the online music platform, has evolved into a more dynamic version, Hir
 
 ## Testing
 
-https://hirmifys.vercel.app/
+https://hirmify.vercel.app/
 
 
 
