@@ -54,6 +54,7 @@ const PlayerContextProvider = (props) => {
             });
 
             if (currentTime === duration) {
+                console.log("waktu nya udah sama");
                 setPlayStatus(false);
                 playWithUrl(downloadUrl, image, name, id);
             }
