@@ -54,7 +54,7 @@ const PlayerContextProvider = (props) => {
             });
 
             if (currentTime === duration) {
-                console.log("waktu nya udah sama");
+                console.log("Next Song");
                 setPlayStatus(false);
                 playWithUrl(downloadUrl, image, name, id);
             }

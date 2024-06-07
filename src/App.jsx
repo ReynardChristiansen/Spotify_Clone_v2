@@ -47,20 +47,20 @@ const App = () => {
         user_name: formData.user_name,
         user_password: formData.user_password
       });
-
+  
       if (response.data.token) {
-        Cookies.set('token', response.data.token, { expires: 7 });
-        Cookies.set('name', response.data.user_name, { expires: 7 });
-        Cookies.set('role', response.data.user_role, { expires: 7 });
-        Cookies.set('id', response.data.user_id, { expires: 7 });
-
+        Cookies.set('token', response.data.token, { expires: 7, sameSite: 'None', secure: true });
+        Cookies.set('name', response.data.user_name, { expires: 7, sameSite: 'None', secure: true });
+        Cookies.set('role', response.data.user_role, { expires: 7, sameSite: 'None', secure: true });
+        Cookies.set('id', response.data.user_id, { expires: 7, sameSite: 'None', secure: true });
+  
         setUserName(response.data.user_name);
         setUserRole(response.data.user_role);
         setUserToken(response.data.token);
         setUserId(response.data.user_id);
-
+  
         setError(null);
-
+  
         window.location.reload();
       }
     } catch (error) {
@@ -68,6 +68,7 @@ const App = () => {
       setError('Invalid credentials');
     }
   };
+  
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -75,35 +76,35 @@ const App = () => {
       setError('Passwords do not match');
       return;
     }
-
+  
     const dataForm = {
       user_name: formDataRegister.user_name,
       user_password: formDataRegister.user_password,
       user_role: "User"
     }
-
+  
     try {
-      const response = await axios.post('https://hirmify-api.vercel.app/api/users/register', dataForm);
-      if (response.status === 201) {
+      const registerResponse = await axios.post('https://hirmify-api.vercel.app/api/users/register', dataForm);
+      if (registerResponse.status === 201) {
         try {
-          const response = await axios.post('https://hirmify-api.vercel.app/api/users/login', {
+          const loginResponse = await axios.post('https://hirmify-api.vercel.app/api/users/login', {
             user_name: formDataRegister.user_name,
             user_password: formDataRegister.user_password
           });
-
-          if (response.data.token) {
-            Cookies.set('token', response.data.token, { expires: 7 });
-            Cookies.set('name', response.data.user_name, { expires: 7 });
-            Cookies.set('role', response.data.user_role, { expires: 7 });
-            Cookies.set('id', response.data.user_id, { expires: 7 });
-
-            setUserName(response.data.user_name);
-            setUserRole(response.data.user_role);
-            setUserToken(response.data.token);
-            setUserId(response.data.user_id);
-
+  
+          if (loginResponse.data.token) {
+            Cookies.set('token', loginResponse.data.token, { expires: 7, sameSite: 'None', secure: true });
+            Cookies.set('name', loginResponse.data.user_name, { expires: 7, sameSite: 'None', secure: true });
+            Cookies.set('role', loginResponse.data.user_role, { expires: 7, sameSite: 'None', secure: true });
+            Cookies.set('id', loginResponse.data.user_id, { expires: 7, sameSite: 'None', secure: true });
+  
+            setUserName(loginResponse.data.user_name);
+            setUserRole(loginResponse.data.user_role);
+            setUserToken(loginResponse.data.token);
+            setUserId(loginResponse.data.user_id);
+  
             setError(null);
-
+  
             window.location.reload();
           }
         } catch (error) {
@@ -111,13 +112,14 @@ const App = () => {
           setError('Invalid credentials');
         }
       } else {
-        console.error('Failed to register:', response.status);
+        console.error('Failed to register:', registerResponse.status);
       }
     } catch (error) {
       console.error('Registration failed:', error);
       setError('Registration failed. Please try again.');
     }
   };
+  
 
   useEffect(() => {
     setToken(Cookies.get('token'));
