@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Sidebar from './components/Sidebar';
@@ -14,6 +14,7 @@ const App = () => {
   const [userRole, setUserRole] = useState('');
   const [userToken, setUserToken] = useState('');
   const [error, setError] = useState('');
+  const usernameRef = useRef('');
   const { audioRef, track } = useContext(PlayerContext);
   const [formData, setFormData] = useState({
     user_name: '',
@@ -48,10 +49,10 @@ const App = () => {
       });
 
       if (response.data.token) {
-        Cookies.set('token', response.data.token, { expires: 1 });
-        Cookies.set('name', response.data.user_name, { expires: 1 });
-        Cookies.set('role', response.data.user_role, { expires: 1 });
-        Cookies.set('id', response.data.user_id, { expires: 1 });
+        Cookies.set('token', response.data.token, { expires: 7 });
+        Cookies.set('name', response.data.user_name, { expires: 7 });
+        Cookies.set('role', response.data.user_role, { expires: 7 });
+        Cookies.set('id', response.data.user_id, { expires: 7 });
 
         setUserName(response.data.user_name);
         setUserRole(response.data.user_role);
@@ -91,10 +92,10 @@ const App = () => {
           });
 
           if (response.data.token) {
-            Cookies.set('token', response.data.token, { expires: 1 });
-            Cookies.set('name', response.data.user_name, { expires: 1 });
-            Cookies.set('role', response.data.user_role, { expires: 1 });
-            Cookies.set('id', response.data.user_id, { expires: 1 });
+            Cookies.set('token', response.data.token, { expires: 7 });
+            Cookies.set('name', response.data.user_name, { expires: 7 });
+            Cookies.set('role', response.data.user_role, { expires: 7 });
+            Cookies.set('id', response.data.user_id, { expires: 7 });
 
             setUserName(response.data.user_name);
             setUserRole(response.data.user_role);
@@ -120,6 +121,7 @@ const App = () => {
 
   useEffect(() => {
     setToken(Cookies.get('token'));
+    usernameRef.current.focus();
   }, []);
 
   return (
@@ -144,6 +146,7 @@ const App = () => {
                   Username:
                 </label>
                 <input
+                  ref={usernameRef}
                   type="text"
                   name="user_name"
                   id="user_name"
