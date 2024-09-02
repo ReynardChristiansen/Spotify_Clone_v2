@@ -40,9 +40,8 @@ const PlayerContextProvider = (props) => {
         if (audioRef.current) {
           audioRef.current.volume = volume;
           Cookies.set('volume', volume, { expires: 7, sameSite: 'None', secure: true });
-
         }
-      }, [volume, setVolume]);
+    }, [volume, setVolume]);
 
     useEffect(() => {
         const updateSeekBar = () => {
@@ -69,6 +68,7 @@ const PlayerContextProvider = (props) => {
 
         if (audioRef.current) {
             audioRef.current.ontimeupdate = updateSeekBar;
+            audioRef.current.volume = volume;
         }
     }, [downloadUrl, image, name, id]);
 
