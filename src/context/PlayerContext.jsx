@@ -1,5 +1,4 @@
 import { createContext, useRef, useState, useEffect } from "react";
-
 export const PlayerContext = createContext();
 import Cookies from 'js-cookie';
 
@@ -9,7 +8,7 @@ const PlayerContextProvider = (props) => {
     const seekBar = useRef();
     const [playlistHistory, setPlaylistHistory] = useState([]);
     const [likesong, setLikesong] = useState([]);
-
+    
 
     const [track, setTrack] = useState({
         id: "mhycwNJZ",
@@ -24,6 +23,7 @@ const PlayerContextProvider = (props) => {
     const [image, setImage] = useState("");
     const [name, setName] = useState("");
     const [id, setId] = useState("");
+    const [volume, setVolume] = useState(Cookies.get('volume'));
 
     const [time, setTime] = useState({
         currentTime: {
@@ -35,6 +35,14 @@ const PlayerContextProvider = (props) => {
             minute: 0
         }
     });
+
+    useEffect(() => {
+        if (audioRef.current) {
+          audioRef.current.volume = volume;
+          Cookies.set('volume', volume, { expires: 7, sameSite: 'None', secure: true });
+
+        }
+      }, [volume, setVolume]);
 
     useEffect(() => {
         const updateSeekBar = () => {
@@ -61,7 +69,6 @@ const PlayerContextProvider = (props) => {
 
         if (audioRef.current) {
             audioRef.current.ontimeupdate = updateSeekBar;
-            audioRef.current.volume = 0.4;
         }
     }, [downloadUrl, image, name, id]);
 
@@ -342,7 +349,9 @@ const PlayerContextProvider = (props) => {
         previousSong,
         like,
         likesong,
-        deleteSong
+        deleteSong,
+        volume,
+        setVolume
     };
 
     return (

@@ -3,9 +3,15 @@ import { assets } from '../assets/assets';
 import { PlayerContext } from '../context/PlayerContext';
 
 const Player = () => {
-  const { seekBar, seekBg, play, pause, track, time, playStatus, seekSong, playNextSong, previousSong, like, likesong } = useContext(PlayerContext);
+  const { seekBar, seekBg, play, pause, track, time, playStatus, seekSong, playNextSong, previousSong, like, likesong, volume, setVolume } = useContext(PlayerContext);
   const [isLiked, setIsLiked] = useState(false);
   const [clicked, setClicked] = useState(false);
+
+  const handleVolumeChange = (e) => {
+    const newVolume = e.target.value;
+    setVolume(newVolume);
+    
+  };
 
   useEffect(() => {
     if (likesong.length > 0) {
@@ -101,12 +107,25 @@ const Player = () => {
 
       <div className='hidden lg:flex items-center gap-2'>
         <img className='w-4 cursor-pointer' src={assets.shuffle_icon} alt='Shuffle'></img>
-        <img className='w-4' src={assets.play_icon} alt='Play'></img>
-        <img className='w-4' src={assets.mic_icon} alt='Mic'></img>
         <img className='w-4' src={assets.queue_icon} alt='Queue'></img>
         <img className='w-4' src={assets.speaker_icon} alt='Speaker'></img>
         <img className='w-4' src={assets.volume_icon} alt='Volume'></img>
-        <div className='w-20 bg-slate-50 h-1 rounded'></div>
+        <div className='relative w-20 h-1 rounded-lg cursor-pointer bg-gradient-to-r from-blue-400 to-purple-600'>
+          <input 
+            type="range" 
+            min="0" 
+            max="1" 
+            step="0.01" 
+            value={volume} 
+            onChange={handleVolumeChange} 
+            className='w-full h-full appearance-none bg-transparent cursor-pointer'
+            style={{
+              backgroundSize: `${volume * 100}% 100%`,
+            }}
+          />
+
+        </div>
+
         <img className='w-4' src={assets.mini_player_icon} alt='Mini Player'></img>
         <img className='w-4' src={assets.zoom_icon} alt='Zoom'></img>
       </div>

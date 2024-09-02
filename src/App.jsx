@@ -53,7 +53,8 @@ const App = () => {
         Cookies.set('name', response.data.user_name, { expires: 7, sameSite: 'None', secure: true });
         Cookies.set('role', response.data.user_role, { expires: 7, sameSite: 'None', secure: true });
         Cookies.set('id', response.data.user_id, { expires: 7, sameSite: 'None', secure: true });
-  
+        Cookies.set('volume', Cookies.get('volume'), { expires: 7, sameSite: 'None', secure: true });
+
         setUserName(response.data.user_name);
         setUserRole(response.data.user_role);
         setUserToken(response.data.token);
@@ -97,7 +98,8 @@ const App = () => {
             Cookies.set('name', loginResponse.data.user_name, { expires: 7, sameSite: 'None', secure: true });
             Cookies.set('role', loginResponse.data.user_role, { expires: 7, sameSite: 'None', secure: true });
             Cookies.set('id', loginResponse.data.user_id, { expires: 7, sameSite: 'None', secure: true });
-  
+            Cookies.set('volume', 0.5, { expires: 7, sameSite: 'None', secure: true });
+
             setUserName(loginResponse.data.user_name);
             setUserRole(loginResponse.data.user_role);
             setUserToken(loginResponse.data.token);
