@@ -59,78 +59,72 @@ const Player = () => {
   };
 
   return (
-    <div className='h-[10%] bg-black flex justify-between items-center text-white px-4'>
+<div className='fixed bottom-0 w-full h-[10%] bg-black flex justify-between items-center text-white px-4'>
 
-      <div className='hidden lg:flex items-center gap-4'>
-        {track.image && <img className='w-12' src={track.image} alt='' />}
-        <div>
-          <p>{sliceName(track.name)}</p>
-        </div>
+<div className='hidden lg:flex items-center gap-4'>
+  {track.image && <img className='w-12' src={track.image} alt='' />}
+  <div>
+    <p>{sliceName(track.name)}</p>
+  </div>
 
-        {!isLiked && !clicked ? (
-          <img onClick={() => handleLike(track.url, track.image, track.name, track.id)} className='w-5 cursor-pointer' src={assets.like} alt='Like' />
+  {!isLiked && !clicked ? (
+    <img onClick={() => handleLike(track.url, track.image, track.name, track.id)} className='w-5 cursor-pointer' src={assets.like} alt='Like' />
+  ) : (
+    <img className='w-5' src={assets.likeFull} alt='Like' />
+  )}
+</div>
+
+<div className='flex flex-col items-center gap-1 m-auto'>
+  <div className='flex gap-4'>
+    <img onClick={handlePrevious} className='w-4 cursor-pointer' src={assets.prev_icon} alt='Previous'></img>
+    {track.name ? (
+      <>
+        {playStatus ? (
+          <img onClick={handlePause} className='w-4 cursor-pointer' src={assets.pause_icon} alt='Pause'></img>
         ) : (
-          <img className='w-5' src={assets.likeFull} alt='Like' />
+          <img onClick={handlePlay} className='w-4 cursor-pointer' src={assets.play_icon} alt='Play'></img>
         )}
+      </>
+    ) : (
+      <img className='w-4 opacity-40' src={assets.play_icon} alt='Play' title='No track available'></img>
+    )}
+    <img onClick={handleNextSong} className='w-4 cursor-pointer' src={assets.next_icon} alt='Next'></img>
+  </div>
 
-
-
-
-      </div>
-
-      <div className='flex flex-col items-center gap-1 m-auto'>
-        <div className='flex gap-4'>
-          <img onClick={handlePrevious} className='w-4 cursor-pointer' src={assets.prev_icon} alt='Previous'></img>
-          {track.name ? (
-            <>
-              {playStatus ? (
-                <img onClick={handlePause} className='w-4 cursor-pointer' src={assets.pause_icon} alt='Pause'></img>
-              ) : (
-                <img onClick={handlePlay} className='w-4 cursor-pointer' src={assets.play_icon} alt='Play'></img>
-              )}
-            </>
-          ) : (
-            <img className='w-4 opacity-40' src={assets.play_icon} alt='Play' title='No track available'></img>
-          )}
-          <img onClick={handleNextSong} className='w-4 cursor-pointer' src={assets.next_icon} alt='Next'></img>
-        </div>
-
-        <div className='flex items-center gap-5'>
-          <p>{formatTime(time.currentTime.minute)}:{formatTime(time.currentTime.second)}</p>
-          <div ref={seekBg} onClick={seekSong} className='w-[60vw] max-w-[500px] mt-2 bg-gray-300 rounded-full cursor-pointer'>
-            <hr ref={seekBar} className='h-1 border-none w-0 bg-[#4ca1e6] rounded-full' />
-          </div>
-          <p>{formatTime(time.totalTime.minute || "00")}:{formatTime(time.totalTime.second || "00")}</p>
-        </div>
-
-      </div>
-
-      <div className='hidden lg:flex items-center gap-2'>
-        <img className='w-4 cursor-pointer' src={assets.shuffle_icon} alt='Shuffle'></img>
-        <img className='w-4' src={assets.queue_icon} alt='Queue'></img>
-        <img className='w-4' src={assets.speaker_icon} alt='Speaker'></img>
-        <img className='w-4' src={assets.volume_icon} alt='Volume'></img>
-        <div className='relative w-20 h-1 rounded-lg cursor-pointer bg-gradient-to-r from-blue-400 to-purple-600'>
-          <input 
-            type="range" 
-            min="0" 
-            max="1" 
-            step="0.01" 
-            value={volume} 
-            onChange={handleVolumeChange} 
-            className='w-full h-full appearance-none bg-transparent cursor-pointer'
-            style={{
-              backgroundSize: `${volume * 100}% 100%`,
-            }}
-          />
-
-        </div>
-
-        <img className='w-4' src={assets.mini_player_icon} alt='Mini Player'></img>
-        <img className='w-4' src={assets.zoom_icon} alt='Zoom'></img>
-      </div>
-
+  <div className='flex items-center gap-5'>
+    <p>{formatTime(time.currentTime.minute)}:{formatTime(time.currentTime.second)}</p>
+    <div ref={seekBg} onClick={seekSong} className='w-[60vw] max-w-[500px] mt-2 bg-gray-300 rounded-full cursor-pointer'>
+      <hr ref={seekBar} className='h-1 border-none w-0 bg-[#4ca1e6] rounded-full' />
     </div>
+    <p>{formatTime(time.totalTime.minute || "00")}:{formatTime(time.totalTime.second || "00")}</p>
+  </div>
+</div>
+
+<div className='hidden lg:flex items-center gap-2'>
+  <img className='w-4 cursor-pointer' src={assets.shuffle_icon} alt='Shuffle'></img>
+  <img className='w-4' src={assets.queue_icon} alt='Queue'></img>
+  <img className='w-4' src={assets.speaker_icon} alt='Speaker'></img>
+  <img className='w-4' src={assets.volume_icon} alt='Volume'></img>
+  <div className='relative w-20 h-1 rounded-lg cursor-pointer bg-gradient-to-r from-blue-400 to-purple-600'>
+    <input 
+      type="range" 
+      min="0" 
+      max="1" 
+      step="0.01" 
+      value={volume} 
+      onChange={handleVolumeChange} 
+      className='w-full h-full appearance-none bg-transparent cursor-pointer'
+      style={{
+        backgroundSize: `${volume * 100}% 100%`,
+      }}
+    />
+  </div>
+  <img className='w-4' src={assets.mini_player_icon} alt='Mini Player'></img>
+  <img className='w-4' src={assets.zoom_icon} alt='Zoom'></img>
+</div>
+
+</div>
+
   );
 };
 
