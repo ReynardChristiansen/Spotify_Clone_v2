@@ -20,8 +20,7 @@ const Navbar = () => {
     Cookies.remove('name');
     Cookies.remove('role');
     Cookies.remove('id');
-    Cookies.remove('volume');
-    setUserName('')
+    setUserName('');
     // Redirect to the login page
     navigate('/')
     window.location.reload();
