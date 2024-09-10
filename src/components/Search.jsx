@@ -20,7 +20,7 @@ const Search = () => {
         setLoading(true);
         async function getSong() {
             try {
-                const apiRes = await fetch(`https://saavn.dev/api/search/songs?query=${param}`);
+                const apiRes = await fetch(`https://jiosaavan-api-2-harsh-patel.vercel.app/api/search/songs?query=${param}`);
                 const final = await apiRes.json();
 
                 setSong(final.data.results);
