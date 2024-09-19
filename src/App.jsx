@@ -69,10 +69,11 @@ const App = () => {
         setError(null);
   
         window.location.reload();
+      }else{
+        setError(response.data.error);
       }
     } catch (error) {
-      console.error('Login failed:', error);
-      setError('Invalid credentials');
+      setError('Login failed');
     }
   };
   
