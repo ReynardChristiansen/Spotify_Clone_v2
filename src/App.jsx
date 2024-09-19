@@ -94,32 +94,38 @@ const App = () => {
     try {
       const registerResponse = await axios.post('https://hirmify-api.vercel.app/api/users/register', dataForm);
       if (registerResponse.status === 201) {
-        try {
-          const loginResponse = await axios.post('https://hirmify-api.vercel.app/api/users/login', {
-            user_name: formDataRegister.user_name,
-            user_password: formDataRegister.user_password
-          });
-  
-          if (loginResponse.data.token) {
-            Cookies.set('token', loginResponse.data.token, { expires: 7, sameSite: 'None', secure: true });
-            Cookies.set('name', loginResponse.data.user_name, { expires: 7, sameSite: 'None', secure: true });
-            Cookies.set('role', loginResponse.data.user_role, { expires: 7, sameSite: 'None', secure: true });
-            Cookies.set('id', loginResponse.data.user_id, { expires: 7, sameSite: 'None', secure: true });
-            Cookies.set('volume', 0.5, { expires: 7, sameSite: 'None', secure: true });
-
-            setUserName(loginResponse.data.user_name);
-            setUserRole(loginResponse.data.user_role);
-            setUserToken(loginResponse.data.token);
-            setUserId(loginResponse.data.user_id);
-  
-            setError(null);
-  
-            window.location.reload();
-          }
-        } catch (error) {
-          console.error('Login failed:', error);
-          setError('Invalid credentials');
+        if(registerResponse.data.error){
+          setError(registerResponse.data.error);
         }
+        else{
+          try {
+            const loginResponse = await axios.post('https://hirmify-api.vercel.app/api/users/login', {
+              user_name: formDataRegister.user_name,
+              user_password: formDataRegister.user_password
+            });
+    
+            if (loginResponse.data.token) {
+              Cookies.set('token', loginResponse.data.token, { expires: 7, sameSite: 'None', secure: true });
+              Cookies.set('name', loginResponse.data.user_name, { expires: 7, sameSite: 'None', secure: true });
+              Cookies.set('role', loginResponse.data.user_role, { expires: 7, sameSite: 'None', secure: true });
+              Cookies.set('id', loginResponse.data.user_id, { expires: 7, sameSite: 'None', secure: true });
+              Cookies.set('volume', 0.5, { expires: 7, sameSite: 'None', secure: true });
+  
+              setUserName(loginResponse.data.user_name);
+              setUserRole(loginResponse.data.user_role);
+              setUserToken(loginResponse.data.token);
+              setUserId(loginResponse.data.user_id);
+    
+              setError(null);
+    
+              window.location.reload();
+            }
+          } catch (error) {
+            console.error('Login failed:', error);
+            setError('Invalid credentials');
+          }
+        }
+        
       } else {
         console.error('Failed to register:', registerResponse.status);
       }
