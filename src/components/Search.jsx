@@ -5,7 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const Search = () => {
-    const { playWithUrl } = useContext(PlayerContext);
+    const { playWithUrl, track } = useContext(PlayerContext);
     const [searchQuery, setSearchQuery] = useState('');
     const [param, setParam] = useState('');
     const [song, setSong] = useState([]);
@@ -117,11 +117,16 @@ const Search = () => {
                             return name.length > maxLength ? `${name.slice(0, maxLength)}...` : name;
                         };
 
+                        const isCurrentTrack = track.id === item.id;
+                        
+
                         return (
                             <div
                                 onClick={() => playWithUrl(downloadUrl, item.image[2].url, item.name, item.id)}
                                 key={index}
-                                className='grid grid-cols-3 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer'
+                                className={`grid grid-cols-3 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer ${
+                                    isCurrentTrack ? "bg-[#ffffff2b]" : ""
+                                }`}
                             >
                                 <p className='text-white'>
                                     <img className='inline w-10 mr-5' src={item.image[0].url} alt='Song' />

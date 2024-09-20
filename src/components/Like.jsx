@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 const Like = () => {
   const [song, setSong] = useState([]);
   const [name, setName] = useState("");
-  const { playWithUrl, deleteSong, playStatus, pause } =
+  const { playWithUrl, deleteSong, playStatus, pause, track } =
     useContext(PlayerContext);
   const [loading, setLoading] = useState(false);
 
@@ -128,10 +128,15 @@ const Like = () => {
                   : name;
               };
 
+              // Check if the current track is the same as the song in the list
+              const isCurrentTrack = track.id === item.song_id;
+
               return (
                 <div
                   key={index}
-                  className="grid grid-cols-3 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer"
+                  className={`grid grid-cols-3 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer ${
+                    isCurrentTrack ? "bg-[#ffffff2b]" : ""
+                  }`}
                   onClick={() =>
                     playWithUrl(
                       item.song_url,
