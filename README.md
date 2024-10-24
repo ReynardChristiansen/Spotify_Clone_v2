@@ -2,7 +2,7 @@
 
 Hirmify, the online music platform, has evolved into a more dynamic version, Hirmify v2. Continuing its commitment to seamless song playback, comprehensive song and artist search, and personalized music experiences, Hirmify v2 now introduces two pivotal features: user login and registration, along with the ability for users to curate their music collections by adding songs to their personal accounts. With these enhancements, users can now enjoy a more tailored and immersive music journey, accessing their favorite tunes anytime, anywhere.
 
-
+![image alt](https://github.com/ReynardChristiansen/Spotify_Clone_v2/blob/main/Project.png?raw=true)
 
 ## Features
 - Login: Hirmify offers a secure login feature, allowing users to log in securely
