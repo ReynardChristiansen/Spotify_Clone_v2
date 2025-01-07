@@ -19,7 +19,7 @@ const SearchArtist = () => {
     useEffect(() => {
         setLoading(true);
         async function getArtist() {
-            if(param){
+            if(param != ""){
                 try {
                     const apiRes = await fetch(`https://server-song-public.vercel.app/api/getArtistByParam/${param}`);
                     const final = await apiRes.json();
