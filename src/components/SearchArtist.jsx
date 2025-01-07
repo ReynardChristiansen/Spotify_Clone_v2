@@ -20,7 +20,7 @@ const SearchArtist = () => {
         setLoading(true);
         async function getArtist() {
             try {
-                const apiRes = await fetch(`https://jiosaavan-api-2-harsh-patel.vercel.app/api/search/artists?query=${param}`);
+                const apiRes = await fetch(`https://server-song-public.vercel.app/api/getArtistByParam/${param}`);
                 const final = await apiRes.json();
 
                 setArtist(final.data.results);

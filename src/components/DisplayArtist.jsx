@@ -16,7 +16,7 @@ const DisplayArtist = () => {
         setLoading(true);
         async function getArtist() {
             try {
-                const apiRes = await fetch(`https://jiosaavan-api-2-harsh-patel.vercel.app/api/artists/${id}`);
+                const apiRes = await fetch(`https://server-song-public.vercel.app/api/getArtistById/${id}`);
                 const final = await apiRes.json();
 
                 setArtisData(final.data);

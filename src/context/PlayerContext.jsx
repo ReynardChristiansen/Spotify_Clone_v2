@@ -81,7 +81,7 @@ const PlayerContextProvider = (props) => {
     async function getArtist() {
       try {
         const apiRes = await fetch(
-          `https://jiosaavan-api-2-harsh-patel.vercel.app/api/songs/${track.id}`
+          `https://server-song-public.vercel.app/api/getSongById/${track.id}`
         );
         const final = await apiRes.json();
         const newArtistId = final.data[0].artists.primary[0].id
@@ -92,7 +92,7 @@ const PlayerContextProvider = (props) => {
         if (newArtistId) {
           try {
             const apiRes = await fetch(
-              `https://jiosaavan-api-2-harsh-patel.vercel.app/api/artists/${newArtistId}`
+              `https://server-song-public.vercel.app/api/getArtistById/${newArtistId}`
             );
             const final_temp = await apiRes.json();
 
