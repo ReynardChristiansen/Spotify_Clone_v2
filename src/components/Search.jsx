@@ -7,7 +7,7 @@ import { AiOutlineSearch } from 'react-icons/ai'
 const Search = () => {
     const { playWithUrl, track } = useContext(PlayerContext);
     const [searchQuery, setSearchQuery] = useState('');
-    const [param, setParam] = useState('');
+    const [param, setParam] = useState();
     const [song, setSong] = useState([]);
     const [loading, setLoading] = useState(false);
 

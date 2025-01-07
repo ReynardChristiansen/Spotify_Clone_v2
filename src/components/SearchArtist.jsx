@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 const SearchArtist = () => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [param, setParam] = useState('');
+    const [param, setParam] = useState();
     const [artist, setArtist] = useState([]);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
