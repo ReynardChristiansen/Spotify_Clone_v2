@@ -19,14 +19,16 @@ const Search = () => {
     useEffect(() => {
         setLoading(true);
         async function getSong() {
-            try {
-                const apiRes = await fetch(`https://server-song-public.vercel.app/api/getSongByParam/${param}`);
-                const final = await apiRes.json();
-
-                setSong(final.data.results);
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
+            if(param){
+                try {
+                    const apiRes = await fetch(`https://server-song-public.vercel.app/api/getSongByParam/${param}`);
+                    const final = await apiRes.json();
+    
+                    setSong(final.data.results);
+                    setLoading(false);
+                } catch (error) {
+                    console.log(error);
+                }
             }
         }
 
